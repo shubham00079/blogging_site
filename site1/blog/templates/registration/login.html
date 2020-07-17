@@ -1,0 +1,22 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class="container">
+  <div class="jumbotron">
+    <h1>Enter yout credentials</h1>
+    <p>(user must be a root user)</p>
+
+    {% if form.errors %}
+      <p>Wrong Credentials</p>
+    {% endif %}
+
+    <form action="{% url 'login' %}" method="POST">
+      {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" class="btn btn-primary" value="LogIn">
+        <input type="hidden" name="next" value="{{next}}">
+    </form>
+  </div>
+</div>
+
+{% endblock %}

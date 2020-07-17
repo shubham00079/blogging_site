@@ -1,0 +1,31 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+  {% if user.is_authenticated %}
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.text }}</p>
+    <p>{{ post.created_on }}</p>
+
+    {% if post.published_date %}
+    <div class="date postdate">
+      {{ post.published_date }}
+    </div>
+    <!-- if publish date present then show it else do u want to publish -->
+  {% else %}
+    <a class="btn btn-default" href="{% url 'post_publish' pk=post.pk %}">Publish</a>
+  {% endif %}
+
+    <br>
+    <br>
+
+    <button type="submit" class="btn btn-secondary">
+      <a href="{% url 'post_update' pk=post.pk %}">Update</a>
+    </button>
+    <button type="submit" class="btn btn-danger" name="button">
+      <a href="{% url 'post_delete' pk=post.pk %}">Delete</a>
+    </button>
+
+  {% else %}
+    <p>Please Login to view detail.</p>
+    <button type="submit" name="button"><a href="{% url 'login' %}">Login</a></button>
+  {% endif %}
+{% endblock %}
